@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <th scope="col">Name</th>
+      <th scope="col">Sport</th>
+      <th scope="col">Line Type</th>
+      <th scope="col">Team</th>
+      <th scope="col">Line</th>
+    </thead>
+  {% for user in users %}
+  <tr>
+    <td>
+      {{user.firstname}}
+    </td>
+    <td>
+      {% for pick in todayspicks if pick.user_id == user.id: %}
+        <div>{{pick.sport}}</div>
+      {%endfor%}
+    </td>
+    <td>
+      {% for pick in todayspicks if pick.user_id == user.id: %}
+        <div>{{pick.linetype}}</div>
+      {%endfor%}
+    </td>
+    <td>
+      {% for pick in todayspicks if pick.user_id == user.id: %}
+        <div>{{pick.team}}</div>
+      {%endfor%}
+    </td>
+    <td>
+      {% for pick in todayspicks if pick.user_id == user.id: %}
+        <div>
+          {%if pick.line !=0:%}
+            {{pick.line}}
+          {%else:%}
+          <br>
+          {%endif%}
+        </div>
+      {%endfor%}
+    </td>
+    {#{% else:%}#}
+      <!--<td></td>
+      <td></td>
+      <td><div>Team 1</div><div>Team 2</div><div>Team 3</div><div>Team 4</div></td>
+      <td><div>3</div><div>5</div><div>2</div><div>5</div></td>-->
+  </tr>
+  {% endfor %}
+  </table>
+</div>
+<!--sum(1 for p in PeopleList if p.Gender == "F")-->
+
+{% endblock content %}
