@@ -1,6 +1,6 @@
-from flask import current_app
+# from flask import current_app
 from pod import db, login_manager
-from flask_login import UserMixin
+# from flask_login import UserMixin
 
 
 class User(db.Model):
@@ -8,7 +8,7 @@ class User(db.Model):
     firstname = db.Column(db.String(30), nullable=False)
     lastname = db.Column(db.String(30), nullable=False)
     email = db.Column(db.String(120), nullable=False, unique=True)
-    picks = db.relationship('Pick', backref='picker', lazy=True)
+    picks = db.relationship('Pick', backref='userobj', lazy=True)
 
     def __repr__(self):
         return f"User('{self.firstname}','{self.lastname}','{self.email}')"
@@ -24,8 +24,13 @@ class Pick(db.Model):
     line = db.Column(db.Float, nullable=False)
     odds = db.Column(db.Integer, nullable=False)
     result = db.Column(db.Boolean)
-
-    #boxscore = db.relationship('BoxScore', backref='')
+    parlay_id = db.Column(db.Integer, db.ForeignKey('parlay.id'), nullable=True)
+    # boxscore = db.relationship('BoxScore', backref='')
 
     def __repr__(self):
         return f"Pick('{self.date}', '{self.team}', '{self.line}', '{self.odds}', '{self.result}')"
+
+
+class Parlay(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    picks = db.relationship('Pick', backref='parlayobj', lazy=True)

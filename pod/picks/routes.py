@@ -2,7 +2,6 @@ from flask import render_template, request, Blueprint
 from pod.models import User, Pick
 import datetime
 
-
 picks = Blueprint('picks', __name__)
 
 
