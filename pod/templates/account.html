@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <th scope="col">Sport</th>
+      <th scope="col">Line Type</th>
+      <th scope="col">Team</th>
+      <th scope="col">Line</th>
+    </thead>
+      {% set skip_list = [] %}
+      {% for pick in picks %}
+        {# If we have already seen this pick from another member of the parlay, don't print it #}
+        {% if pick.parlay_id in skip_list %}
+        {# Do nothing #}
+        {% else %}
+          {# If it's not a parlayed pick print it normally #}
+          {% if pick.parlay_id == None %}
+            <tr>
+              <td>{{pick.sport}}</td>
+              <td>{{pick.linetype}}</td>
+              <td>{{pick.team}}</td>
+              <td>{{pick.line}}</td>
+            </tr>
+          {# Else, print out the paylayed pick and add the other members to the skip_list #}
+          {% else %}
+          <tr>
+            <td>
+              {% for parpick in pick.parlayobj.picks %}
+                <div>{{parpick.sport}}</div>
+                {% do skip_list.append(parpick.id) %}
+              {% endfor %}
+            </td>
+            <td>
+              {% for parpick in pick.parlayobj.picks %}
+                <div>{{parpick.linetype}}</div>
+              {% endfor %}
+            </td>
+            <td>
+              {% for parpick in pick.parlayobj.picks %}
+                <div>{{parpick.team}}</div>
+              {% endfor %}
+            </td>
+            <td>
+              {% for parpick in pick.parlayobj.picks %}
+                <div>{{parpick.line}}</div>
+              {% endfor %}
+            </td>
+          </tr>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+  </table>
+</div>
+
+{% endblock content %}

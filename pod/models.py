@@ -13,7 +13,7 @@ class User(db.Model, UserMixin):
     firstname = db.Column(db.String(30), nullable=False)
     lastname = db.Column(db.String(30), nullable=False)
     email = db.Column(db.String(120), nullable=False, unique=True)
-    picks = db.relationship('Pick', backref='userobj', lazy=True)
+    picks = db.relationship('Pick', backref='userobj', lazy=False)
 
     def __repr__(self):
         return f"User('{self.firstname}','{self.lastname}','{self.email}')"
@@ -38,4 +38,4 @@ class Pick(db.Model):
 
 class Parlay(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    picks = db.relationship('Pick', backref='parlayobj', lazy=True)
+    picks = db.relationship('Pick', backref='parlayobj', lazy=False)
