@@ -1,5 +1,27 @@
 {% extends "layout.html" %}
-{% block content1 %}
+{% block content1  %}
+
+<form>
+  <div class="form-row">
+    <div class="col-auto">
+      <select class="selectpicker" data-show-subtext="true" data-live-search="True">
+        <option>Texans</option>
+        <option>Cardinals</option>
+      </select>
+
+    </div>
+  </div>
+</form>
+
+
+
+{% endblock content1 %}
+
+
+
+
+{% block content2 %}
+<h2 class="display-4 mb-4">{{current_user.firstname}}'s Picks</h2>
 <div class="table-responsive">
   <table class="table">
     <thead>
@@ -53,4 +75,4 @@
   </table>
 </div>
 
-{% endblock content1 %}
+{% endblock content2 %}
