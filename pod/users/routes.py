@@ -40,7 +40,7 @@ def logout():
     return redirect(url_for('picks.home'))
 
 
-@users.route("/")
+@users.route("/account")
 @login_required
 def account():
     picks = Pick.query.filter(Pick.user_id == current_user.id).order_by(Pick.date.desc()).all()

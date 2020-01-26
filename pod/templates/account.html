@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block content %}
+{% block content1 %}
 <div class="table-responsive">
   <table class="table">
     <thead>
@@ -11,7 +11,7 @@
       {% set skip_list = [] %}
       {% for pick in picks %}
         {# If we have already seen this pick from another member of the parlay, don't print it #}
-        {% if pick.parlay_id in skip_list %}
+        {% if pick.id in skip_list %}
         {# Do nothing #}
         {% else %}
           {# If it's not a parlayed pick print it normally #}
@@ -53,4 +53,4 @@
   </table>
 </div>
 
-{% endblock content %}
+{% endblock content1 %}
