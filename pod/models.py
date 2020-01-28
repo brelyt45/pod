@@ -26,9 +26,9 @@ class Pick(db.Model):
     sport = db.Column(db.String(60), nullable=False)
     team = db.Column(db.String(60), nullable=False)
     linetype = db.Column(db.String(60), nullable=False)
-    line = db.Column(db.Float, nullable=False)
-    odds = db.Column(db.Integer, nullable=False)
-    result = db.Column(db.Boolean)
+    line = db.Column(db.String(60), nullable=False)
+    odds = db.Column(db.Integer, nullable=True)
+    result = db.Column(db.Boolean, nullable=True)
     parlay_id = db.Column(db.Integer, db.ForeignKey('parlay.id'), nullable=True)
     # boxscore = db.relationship('BoxScore', backref='')
 

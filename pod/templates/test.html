@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+    <script type="text/javascript" src="{{url_for('static', filename='teamnames.js')}}"></script>
+
+</head>
+<body>
+<form class="form-inline">
+    <select id="leagues" class="form-control">
+      <option value="" disabled selected>Pick a league</option>
+      <option value="mlb">MLB</option>
+      <option value="nba">NBA</option>
+      <option value="ncaab">NCAAB</option>
+      <option value="ncaaf">NCAAF</option>
+      <option value="nfl">NFL</option>
+      <option value="nhl">NHL</option>
+    </select>
+
+    <select id="teams" class="form-control">
+      <option value="" disabled selected>Pick a league first</option>
+
+    </select>
+</form>
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+        // Map your teams to your league value
+        // When an option is changed, search the above for matching teams
+        $('#leagues').on('change', function() {
+           // Set selected option as variable
+           var selectValue = $(this).val();
+
+           // Empty the target field
+           $('#teams').empty();
+
+           // For each chocie in the selected option
+           for (i = 0; i < teamnames[selectValue].length; i++) {
+              // Output choice in the target field
+              $('#teams').append("<option value='" + teamnames[selectValue][i] + "'>" + teamnames[selectValue][i] + "</option>");
+           }
+        });
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>

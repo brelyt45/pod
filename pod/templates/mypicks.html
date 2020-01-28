@@ -1,27 +1,29 @@
 {% extends "layout.html" %}
 {% block content1  %}
+<h2 class="display-4 mb-4">{{current_user.firstname}}'s Picks</h2>
+<form class="form-inline">
+  <select id="leagues" class="form-control">
+    <option value="" disabled selected>Pick a league</option>
+    <option value="mlb">MLB</option>
+    <option value="nba">NBA</option>
+    <option value="ncaab">NCAAB</option>
+    <option value="ncaaf">NCAAF</option>
+    <option value="nfl">NFL</option>
+    <option value="nhl">NHL</option>
+  </select>
 
-<form>
-  <div class="form-row">
-    <div class="col-auto">
-      <select class="selectpicker" data-show-subtext="true" data-live-search="True">
-        <option>Texans</option>
-        <option>Cardinals</option>
-      </select>
+  <select id="teams" class="form-control">
+    <option value="" disabled selected>Pick a league first</option>
 
-    </div>
-  </div>
+  </select>
 </form>
-
-
-
 {% endblock content1 %}
 
 
 
 
 {% block content2 %}
-<h2 class="display-4 mb-4">{{current_user.firstname}}'s Picks</h2>
+
 <div class="table-responsive">
   <table class="table">
     <thead>
