@@ -12,13 +12,16 @@ class ParlayPickForm(Form):
     date = StringField()
 
     def validate_email(self, line):
-        overunderpattern = re.compile(r'(^[ou][1-9]\d*(.5)?$)')
-        spreadpattern = re.compile(r'(^[-+]?[1-9]\d*(\.5)?$)')
+        overunderpattern = re.compile(r'^[ou][1-9]\d*(.5)?$')
+        spreadpattern = re.compile(r'^[-+]?[1-9]\d*(\.5)?$')
 
-        if not bool(overunderpattern.match(line.data)):
-            raise ValidationError("Invalid over/under expression.  Examples: o48, u49.5")
+        if linetype.data == 'Over/Under':
+            if not bool(overunderpattern.match(line.data)):
+                raise ValidationError("Invalid over/under expression.  Examples: o48, u49.5")
 
-        if not bool(spreadpattern.match(line.data)):
+        elif linetype.data == 'Spread':
+            if not bool(spreadpattern.match(line.data)):
+                raise ValidationError("Invalid spread expression. Examples: 8, +8.5, -2.5")
 
             # Python regex for line ([ou][1-9]\d*(.5)?)|([-+]?[1-9]\d*(\.5)?)
             # link to proof https://regex101.com/r/Yr1qFJ/1

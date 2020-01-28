@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, DateField, DecimalField, IntegerField, BooleanField, SubmitField
+from wtforms import StringField, DateField, DecimalField, IntegerField, BooleanField, SubmitField,
 from wtforms.validators import DataRequired, Length, Email, ValidationError
 from pod import db
 from pod.models import User, Pick
