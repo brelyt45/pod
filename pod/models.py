@@ -40,3 +40,9 @@ class Parlay(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     picks = db.relationship('Pick', backref='parlayobj', lazy=False)
     #result = db.Column(db.Boolean)
+
+
+class TeamNames(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    league = db.Column(db.String(20))
+    team = db.Column(db.String(60))

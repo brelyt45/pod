@@ -28,4 +28,5 @@ class ParlayPickForm(FlaskForm):
             # link to proof https://regex101.com/r/Yr1qFJ/1
 
 
-# class ParlayForm(FlaskForm):
+class ParlayForm(FlaskForm):
+    picks = FieldList(FormField(ParlayPickForm), min_entries=1, max_entries=10)

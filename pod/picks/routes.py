@@ -1,8 +1,9 @@
-from flask import render_template, request, Blueprint, jsonify, flash
-from pod.models import User, Pick
+from flask import render_template, request, Blueprint, flash, redirect, url_for
+from pod.picks.forms import ParlayForm, ParlayPickForm
+from pod.models import User, Pick, Parlay
 import datetime
 from flask_login import login_user, logout_user, current_user, login_required
-from pod.picks.forms import ParlayPickForm
+from pod import db
 import pod.teamnames
 
 picks = Blueprint('picks', __name__)
@@ -20,13 +21,24 @@ def home():
 @login_required
 def mypicks():
     picks = Pick.query.filter(Pick.user_id == current_user.id).order_by(Pick.date.desc()).all()
-    form = ParlayPickForm()
+
+    form = ParlayForm()
 
     if form.validate_on_submit():
-        flash(f'Pick Submitted Successfully', 'success')
-        return redirect(url_for('picks.mypicks'))
-    else:
-        flash(f'Unable to Submit pick, check fields', 'danger')
+
+        parlay = Parlay()
+        db.session.add(parlay)
+
+        for pick in form.picks.data:
+            parlay.picks.append(ParlayPickForm(**pick))
+
+        db.session.commit()
+        flahs(f'Pick Submitted Successfully', 'success')
+
+        return redirect(url_for('picks.home'))
+
+    # else:
+    #     flash(f'Unable to Accept Pick, check fields', 'danger')
 
     return render_template('mypicks.html', picks=picks, form=form)
 

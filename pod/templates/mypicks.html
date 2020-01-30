@@ -1,55 +1,24 @@
 {% extends "layout.html" %}
 {% block content1  %}
 <h2 class="display-4 mb-4">{{current_user.firstname}}'s Picks</h2>
-<form method="POST" class="form-inline">
-  <div>
-  {% if form.sport.errors %}
-    {{ form.sport(class ="form-control is-invalid") }}
-    <div class="invalid-feedback">
-      {% for error in form.sport.errors %}
-        <span>{{ error }}</span>
-      {% endfor %}
-    </div>
-  {% else %}
-    {{ form.sport(class="form-control") }}
-  {% endif %}
 
-  {% if form.team.errors %}
-    {{ form.team(class ="form-control is-invalid")}}
-    <div class="invalid-feedback">
-      {% for error in form.team.errors %}
-        <span>{{ error }}</span>
-      {% endfor %}
-    </div>
-  {% else %}
-    {{ form.team(class="form-control") }}
-  {% endif %}
+<form id="lap-form" action="" method="POST" role = "form">
+  {{ form.hidden_tag() }}
 
-  {% if form.linetype.errors %}
-    {{ form.linetype(class ="form-control is-invalid") }}
-    <div class="invalid-feedback">
-      {% for error in form.linetype.errors %}
-        <span>{{ error }}</span>
+  <div id="subforms-container">
+    {% for subform in form.picks %}
+      <div id="lap-{{ loop.index0 }}-form" class="subform" data-index="{{ loop.index0 }}">
+        {{ subform.sport }}
+        {{ subform.team }}
+        {{ subform.linetype }}
+        {{ subform.line }}
+        <button type="button" class="btn btn-danger">Delete</button>
+      </div>
       {% endfor %}
-    </div>
-  {% else %}
-    {{ form.linetype(class="form-control") }}
-  {% endif %}
-
-  {% if form.line.errors %}
-    {{ form.line(class ="form-control is-invalid") }}
-    <div class="invalid-feedback">
-      {% for error in form.line.errors %}
-        <span>{{ error }}</span>
-      {% endfor %}
-    </div>
-  {% else %}
-    {{ form.line(class="form-control") }}
-  {% endif %}
-  {# {{ form.date }} #}
   </div>
-  <input type="submit">
+  <button type="submit">Submit Pick</button>
 </form>
+
 <script type="text/javascript" src="{{ url_for('static', filename='updatelist.js') }}"></script>
 {% endblock content1 %}
 
