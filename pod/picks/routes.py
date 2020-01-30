@@ -1,4 +1,4 @@
-from flask import render_template, request, Blueprint, flash, redirect, url_for
+from flask import render_template, request, Blueprint, flash, redirect, url_for, jsonify
 from pod.picks.forms import ParlayForm, ParlayPickForm
 from pod.models import User, Pick, Parlay
 import datetime

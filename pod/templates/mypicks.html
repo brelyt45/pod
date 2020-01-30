@@ -1,25 +1,54 @@
 {% extends "layout.html" %}
 {% block content1  %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <h2 class="display-4 mb-4">{{current_user.firstname}}'s Picks</h2>
+<button type="button" id="add" class="btn btn-primary">Add Parlay Leg</button>
 
-<form id="lap-form" action="" method="POST" role = "form">
+<form id="pick-form" action="" method="POST" role = "form">
   {{ form.hidden_tag() }}
+
 
   <div id="subforms-container">
     {% for subform in form.picks %}
-      <div id="lap-{{ loop.index0 }}-form" class="subform" data-index="{{ loop.index0 }}">
+      <div id="pick-{{ loop.index0 }}-form" class="subform" data-index="{{ loop.index0 }}">
         {{ subform.sport }}
         {{ subform.team }}
         {{ subform.linetype }}
         {{ subform.line }}
-        <button type="button" class="btn btn-danger">Delete</button>
       </div>
       {% endfor %}
   </div>
-  <button type="submit">Submit Pick</button>
 </form>
 
+{# Form template #}
+<div id="pick-_-form" class="is-hidden" data-index="_">
+    <select id="picks-_-sport" name="picks-_-sport">
+      <option value="MLB">MLB</option>
+      <option value="NBA">NBA</option>
+      <option value="NCAAB">NCAAB</option>
+      <option value="NCAAF">NCAAF</option>
+      <option value="NFL">NFL</option>
+      <option value="NHL">NHL</option>
+    </select>
+
+    <select id="picks-_-team" name="picks-_-team">
+    </select>
+
+    <select id="picks-_-linetype" name="picks-_-linetype">
+      <option value="Spread">Spread</option>
+      <option value="MoneyLine">MoneyLine</option>
+      <option selected="" value="Over/Under">Over/Under</option>
+      <option value="Prop">Prop</option>
+    </select>
+
+    <input id="picks-_-line" name="picks-_-line" required="" type="text">
+
+    <button type="button" class="btn btn-danger remove">Delete Leg</button>
+</div>
+
+<button type="submit" class="btn btn-primary">Submit Pick</button>
 <script type="text/javascript" src="{{ url_for('static', filename='updatelist.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='formhandling.js') }}"></script>
 {% endblock content1 %}
 
 
