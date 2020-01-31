@@ -6,7 +6,7 @@ function adjustIndices(removedIndex) {
 
     $forms.each(function(i) {
         var $form = $(this);
-        var index = parseInt($form.data('index'));
+        var index = parseInt($form.attr('data-index'));
         var newIndex = index - 1;
 
         if (index < removedIndex) {
@@ -16,10 +16,15 @@ function adjustIndices(removedIndex) {
 
         // Change ID in form itself
         $form.attr('id', $form.attr('id').replace(index, newIndex));
-        $form.data('index', newIndex);
+        $form.attr('data-index', newIndex);
 
         // Change IDs in form inputs
         $form.find('input').each(function(j) {
+            var $item = $(this);
+            $item.attr('id', $item.attr('id').replace(index, newIndex));
+            $item.attr('name', $item.attr('name').replace(index, newIndex));
+        });
+        $form.find('select').each(function(j) {
             var $item = $(this);
             $item.attr('id', $item.attr('id').replace(index, newIndex));
             $item.attr('name', $item.attr('name').replace(index, newIndex));
@@ -32,7 +37,7 @@ function adjustIndices(removedIndex) {
  */
 function removeForm() {
     var $removedForm = $(this).closest('.subform');
-    var removedIndex = parseInt($removedForm.data('index'));
+    var removedIndex = parseInt($removedForm.attr('data-index'));
 
     $removedForm.remove();
 
@@ -57,11 +62,11 @@ function addForm() {
     var newIndex = 0;
 
     if ($lastForm.length > 0) {
-        newIndex = parseInt($lastForm.data('index')) + 1;
+        newIndex = parseInt($lastForm.attr('data-index')) + 1;
     }
 
     // Maximum of 20 subforms
-    if (newIndex > 20) {
+    if (newIndex > 10) {
         console.log('[WARNING] Reached maximum number of elements');
         return;
     }
@@ -70,8 +75,14 @@ function addForm() {
     var $newForm = $templateForm.clone();
 
     $newForm.attr('id', $newForm.attr('id').replace('_', newIndex));
-    $newForm.data('index', newIndex);
+    $newForm.attr('data-index', newIndex);
 
+    $newForm.find('select').each(function(idx) {
+        var $item = $(this);
+
+        $item.attr('id', $item.attr('id').replace('_', newIndex));
+        $item.attr('name', $item.attr('name').replace('_', newIndex));
+    });
     $newForm.find('input').each(function(idx) {
         var $item = $(this);
 
