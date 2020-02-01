@@ -4,8 +4,8 @@
 <h2 class="display-4 mb-4">{{current_user.firstname}}'s Picks</h2>
 
 
-<form id="pick-form" class="form-inline" action="" method="POST" role = "form">
-  {{ form.hidden_tag() }}
+<form id="pick-form" class="" action="" method="POST" role = "form">
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 
 
   <div id="subforms-container" class="">
@@ -18,6 +18,8 @@
       </div>
       {% endfor %}
   </div>
+<button type="button" id="add" class="btn btn-primary">Add Parlay Leg</button>
+<button type="submit" class="btn btn-primary">Submit Pick</button>
 </form>
 
 {# Form template #}
@@ -46,8 +48,7 @@
       <button type="button" class="btn btn-danger remove">Delete Leg</button>
   </div>
 
-<button type="button" id="add" class="btn btn-primary">Add Parlay Leg</button>
-<button type="submit" class="btn btn-primary">Submit Pick</button>
+
 <script type="text/javascript" src="{{ url_for('static', filename='updatelist.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='formhandling.js') }}"></script>
 {% endblock content1 %}

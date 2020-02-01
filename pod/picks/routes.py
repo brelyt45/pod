@@ -5,6 +5,7 @@ import datetime
 from flask_login import login_user, logout_user, current_user, login_required
 from pod import db
 import pod.teamnames
+import pdb
 
 picks = Blueprint('picks', __name__)
 
@@ -30,15 +31,12 @@ def mypicks():
         db.session.add(parlay)
 
         for pick in form.picks.data:
-            parlay.picks.append(ParlayPickForm(**pick))
+            parlay.picks.append(Pick(**pick))
 
         db.session.commit()
         flahs(f'Pick Submitted Successfully', 'success')
 
         return redirect(url_for('picks.home'))
-
-    # else:
-    #     flash(f'Unable to Accept Pick, check fields', 'danger')
 
     return render_template('mypicks.html', picks=picks, form=form)
 
