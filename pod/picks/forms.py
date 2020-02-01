@@ -5,9 +5,14 @@ import re
 from pod.teamnames import mlbtup
 
 
+class NonValidatingSelectField(SelectField):
+    def pre_validate(self, form):
+        pass
+
+
 class ParlayPickForm(FlaskForm):
     sport = SelectField('sport', choices=[('MLB', 'MLB'), ('NBA', 'NBA'), ('NCAAB', 'NCAAB'), ('NCAAF', 'NCAAF'), ('NFL', 'NFL'), ('NHL', 'NHL')])
-    team = SelectField('team', choices=mlbtup)
+    team = NonValidatingSelectField('team', choices=mlbtup)
     linetype = SelectField('linetype', choices=[('Spread', 'Spread'), ('MoneyLine', 'MoneyLine'), ('Over/Under', 'Over/Under'), ('Prop', 'Prop')])
     line = StringField('line', validators=[DataRequired(), Length(max=60)])
     date = StringField()

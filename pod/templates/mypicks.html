@@ -7,7 +7,12 @@
 <form id="pick-form" class="" action="" method="POST" role = "form">
 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 
-
+{% if ers %}
+  <p>{{ form.sport.errors }} sport errors</p>
+  <p>{{ form.team.errors }} team errors</p>
+  <p>{{ form.linetype.errors }} linetype errors</p>
+  <p>{{ form.line.errors }} line errors</p>
+{% endif %}
   <div id="subforms-container" class="">
     {% for subform in form.picks %}
       <div id="pick-{{ loop.index0 }}-form" class="subform form-group mb-3" data-index="{{ loop.index0 }}">

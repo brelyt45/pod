@@ -24,6 +24,8 @@ def mypicks():
     picks = Pick.query.filter(Pick.user_id == current_user.id).order_by(Pick.date.desc()).all()
 
     form = ParlayForm()
+    if request.method == 'POST' and not form.validate_on_submit():
+        pdb.set_trace()
 
     if form.validate_on_submit():
 
@@ -31,10 +33,10 @@ def mypicks():
         db.session.add(parlay)
 
         for pick in form.picks.data:
-            parlay.picks.append(Pick(**pick))
+            parlay.picks.append(Pick(user_id=current_user.id, date=datetime.date.today(), sport=pick['sport'], team=pick['team'], linetype=pick['linetype'], line=pick['line']))
 
         db.session.commit()
-        flahs(f'Pick Submitted Successfully', 'success')
+        flash(f'Pick Submitted Successfully', 'success')
 
         return redirect(url_for('picks.home'))
 
