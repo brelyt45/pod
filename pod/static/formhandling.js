@@ -63,6 +63,7 @@ function addForm() {
 
     if ($lastForm.length > 0) {
         newIndex = parseInt($lastForm.attr('data-index')) + 1;
+
     }
 
     // Maximum of 20 subforms

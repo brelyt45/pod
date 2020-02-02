@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block content1  %}
+<div class="pb-2">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <h2 class="display-4 mb-4">{{current_user.firstname}}'s Picks</h2>
 
@@ -8,9 +9,9 @@
 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 
 <div id="subforms-container" class="">
-    <div id="pick-0-form" class="subform form-group mb-3" data-index="0">
+    <div id="pick-0-form" class="subform form-group pb-1" data-index="0">
         <div class="form-row">
-            <div class="col">
+            <div class="col-5">
                 <label for="picks-0-sport">League</label>
                 <select class="form-control sport" id="picks-0-sport" name="picks-0-sport">
                     <option value="MLB">MLB</option>
@@ -21,7 +22,7 @@
                     <option value="NHL">NHL</option>
                 </select>
             </div>
-            <div class="col">
+            <div class="col-5">
                 <label for="picks-0-team">Team</label>
                 <select class="form-control team" id="picks-0-team" name="picks-0-team">
                     <option value="Arizona Diamondbacks">Arizona Diamondbacks</option>
@@ -58,31 +59,32 @@
             </div>
         </div>
         <div class="form-row">
-            <div class="col">
+            <div class="col-5">
                 <label for="picks-0-linetype">Line Type</label>
-                <select class="form-control" id="picks-0-linetype" name="picks-0-linetype">
+                <select class="form-control linetype" id="picks-0-linetype" name="picks-0-linetype">
                     <option value="Spread">Spread</option>
                     <option value="MoneyLine">MoneyLine</option>
                     <option value="Over/Under">Over/Under</option>
                     <option value="Prop">Prop</option>
                 </select>
             </div>
-            <div class="col">
+            <div class="col-5">
                 <label for="picks-0-line">Line</label>
-                <input class="form-control" id="picks-0-line" name="picks-0-line" type="text" value="" pattern="(^[ou][1-9]\d*(.5)?$)|(^[-+]?[1-9]\d*(\.5)?$)" required>
+                <input class="form-control line" id="picks-0-line" name="picks-0-line" type="text" value="" pattern="(^[-+]?[1-9]\d*(\.5)?$)" required>
+                <div class="invalid-feedback">Invalid Spread: e.g. 34, -3.5, +3 </div>
             </div>
         </div>
     </div>
 </div>
-
-<button type="button" id="add" class="btn btn-primary">Add Parlay Leg</button>
-<button type="submit" class="btn btn-primary">Submit Pick</button>
+<button type="button" id="add" class="btn btn-secondary">Add Parlay Leg</button>
+<button type="submit" class="btn btn-success">Submit Pick</button>
 </form>
+</div>
 
 {# Form template #}
-<div id="pick-_-form" class="is-hidden subform form-group mb-3" data-index="_">
+<div id="pick-_-form" class="is-hidden form-group pt-1 pb-2 border-top" data-index="_">
     <div class="form-row">
-        <div class="col">
+        <div class="col-5">
             <label for="picks-_-sport">League</label>
             <select class="form-control sport" id="picks-_-sport" name="picks-_-sport">
                 <option value="MLB">MLB</option>
@@ -93,7 +95,7 @@
                 <option value="NHL">NHL</option>
             </select>
         </div>
-        <div class="col">
+        <div class="col-5">
             <label for="picks-_-team">Team</label>
             <select class="form-control team" id="picks-_-team" name="picks-_-team">
                 <option value="Arizona Diamondbacks">Arizona Diamondbacks</option>
@@ -130,20 +132,23 @@
         </div>
     </div>
     <div class="form-row">
-        <div class="col">
-            <label for="picks-_-linetype">Line Type</label>
-            <select class="form-control" id="picks-_-linetype" name="picks-_-linetype">
+        <div class="col-5">
+            <label  for="picks-_-linetype">Line Type</label>
+            <select class="form-control linetype" id="picks-_-linetype" name="picks-_-linetype">
                 <option value="Spread">Spread</option>
                 <option value="MoneyLine">MoneyLine</option>
                 <option value="Over/Under">Over/Under</option>
                 <option value="Prop">Prop</option>
             </select>
         </div>
-        <div class="col">
-            <label for="picks-_-line">Line</label>
-            <input class="form-control" id="picks-_-line" name="picks-_-line" type="text" value="" pattern="(^[ou][1-9]\d*(.5)?$)|(^[-+]?[1-9]\d*(\.5)?$)" required>
+        <div class="col-5">
+            <label class = 'label'for="picks-_-line">Line</label>
+            <input class="form-control line" id="picks-_-line" name="picks-_-line" type="text" value="" pattern="(^[-+]?[1-9]\d*(\.5)?$)" required>
+            <div class="invalid-feedback">Invalid Spread: e.g. 34, -3.5, +3 </div>
         </div>
-        <button type="button" class="btn btn-danger remove">Delete Leg</button>
+        <div class="col-2">
+          <button type="button" class="btn btn-danger remove">Delete Leg</button>
+        </div>
     </div>
 </div>
 
