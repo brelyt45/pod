@@ -24,8 +24,8 @@ def mypicks():
     picks = Pick.query.filter(Pick.user_id == current_user.id).order_by(Pick.date.desc()).all()
 
     form = ParlayForm()
-    if request.method == 'POST' and not form.validate_on_submit():
-        pdb.set_trace()
+    # if request.method == 'POST' and not form.validate_on_submit():
+    #     pdb.set_trace()
 
     if form.validate_on_submit():
 

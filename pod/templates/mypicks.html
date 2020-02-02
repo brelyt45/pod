@@ -4,54 +4,148 @@
 <h2 class="display-4 mb-4">{{current_user.firstname}}'s Picks</h2>
 
 
-<form id="pick-form" class="" action="" method="POST" role = "form">
+<form id="pick-form" class="needs-validation" action="" method="POST" role = "form" novalidate>
 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 
-{% if ers %}
-  <p>{{ form.sport.errors }} sport errors</p>
-  <p>{{ form.team.errors }} team errors</p>
-  <p>{{ form.linetype.errors }} linetype errors</p>
-  <p>{{ form.line.errors }} line errors</p>
-{% endif %}
-  <div id="subforms-container" class="">
-    {% for subform in form.picks %}
-      <div id="pick-{{ loop.index0 }}-form" class="subform form-group mb-3" data-index="{{ loop.index0 }}">
-          {{ subform.sport(class="form-control sport") }}
-          {{ subform.team(class="form-control team") }}
-          {{ subform.linetype(class="form-control") }}
-          {{ subform.line(class="form-control") }}
-      </div>
-      {% endfor %}
-  </div>
+<div id="subforms-container" class="">
+    <div id="pick-0-form" class="subform form-group mb-3" data-index="0">
+        <div class="form-row">
+            <div class="col">
+                <label for="picks-0-sport">League</label>
+                <select class="form-control sport" id="picks-0-sport" name="picks-0-sport">
+                    <option value="MLB">MLB</option>
+                    <option value="NBA">NBA</option>
+                    <option value="NCAAB">NCAAB</option>
+                    <option value="NCAAF">NCAAF</option>
+                    <option value="NFL">NFL</option>
+                    <option value="NHL">NHL</option>
+                </select>
+            </div>
+            <div class="col">
+                <label for="picks-0-team">Team</label>
+                <select class="form-control team" id="picks-0-team" name="picks-0-team">
+                    <option value="Arizona Diamondbacks">Arizona Diamondbacks</option>
+                    <option value="Atlanta Braves">Atlanta Braves</option>
+                    <option value="Baltimore Orioles">Baltimore Orioles</option>
+                    <option value="Boston Red Sox">Boston Red Sox</option>
+                    <option value="Chicago Cubs">Chicago Cubs</option>
+                    <option value="Chicago White Sox">Chicago White Sox</option>
+                    <option value="Cincinnati Reds">Cincinnati Reds</option>
+                    <option value="Cleveland Indians">Cleveland Indians</option>
+                    <option value="Colorado Rockies">Colorado Rockies</option>
+                    <option value="Detroit Tigers">Detroit Tigers</option>
+                    <option value="Houston Astros">Houston Astros</option>
+                    <option value="Kansas City Royals">Kansas City Royals</option>
+                    <option value="Los Angeles Angels">Los Angeles Angels</option>
+                    <option value="Los Angeles Dodgers">Los Angeles Dodgers</option>
+                    <option value="Miami Marlins">Miami Marlins</option>
+                    <option value="Milwaukee Brewers">Milwaukee Brewers</option>
+                    <option value="Minnesota Twins">Minnesota Twins</option>
+                    <option value="New York Mets">New York Mets</option>
+                    <option value="New York Yankees">New York Yankees</option>
+                    <option value="Oakland Athletics">Oakland Athletics</option>
+                    <option value="Philadelphia Phillies">Philadelphia Phillies</option>
+                    <option value="Pittsburgh Pirates">Pittsburgh Pirates</option>
+                    <option value="San Diego Padres">San Diego Padres</option>
+                    <option value="San Francisco Giants">San Francisco Giants</option>
+                    <option value="Seattle Mariners">Seattle Mariners</option>
+                    <option value="St. Louis Cardinals">St. Louis Cardinals</option>
+                    <option value="Tampa Bay Rays">Tampa Bay Rays</option>
+                    <option value="Texas Rangers">Texas Rangers</option>
+                    <option value="Toronto Blue Jays">Toronto Blue Jays</option>
+                    <option value="Washington Nationals">Washington Nationals</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <label for="picks-0-linetype">Line Type</label>
+                <select class="form-control" id="picks-0-linetype" name="picks-0-linetype">
+                    <option value="Spread">Spread</option>
+                    <option value="MoneyLine">MoneyLine</option>
+                    <option value="Over/Under">Over/Under</option>
+                    <option value="Prop">Prop</option>
+                </select>
+            </div>
+            <div class="col">
+                <label for="picks-0-line">Line</label>
+                <input class="form-control" id="picks-0-line" name="picks-0-line" type="text" value="" pattern="(^[ou][1-9]\d*(.5)?$)|(^[-+]?[1-9]\d*(\.5)?$)" required>
+            </div>
+        </div>
+    </div>
+</div>
+
 <button type="button" id="add" class="btn btn-primary">Add Parlay Leg</button>
 <button type="submit" class="btn btn-primary">Submit Pick</button>
 </form>
 
 {# Form template #}
-  <div id="pick-_-form" class="is-hidden form-group mb-3" data-index="_">
-      <select class="form-control sport" id="picks-_-sport" name="picks-_-sport">
-        <option value="MLB">MLB</option>
-        <option value="NBA">NBA</option>
-        <option value="NCAAB">NCAAB</option>
-        <option value="NCAAF">NCAAF</option>
-        <option value="NFL">NFL</option>
-        <option value="NHL">NHL</option>
-      </select>
-
-      <select class="form-control" id="picks-_-team" name="picks-_-team">
-      </select>
-
-      <select class="form-control" id="picks-_-linetype" name="picks-_-linetype">
-        <option value="Spread">Spread</option>
-        <option value="MoneyLine">MoneyLine</option>
-        <option selected="" value="Over/Under">Over/Under</option>
-        <option value="Prop">Prop</option>
-      </select>
-
-      <input class="form-control" id="picks-_-line" name="picks-_-line" required="" type="text">
-
-      <button type="button" class="btn btn-danger remove">Delete Leg</button>
-  </div>
+<div id="pick-_-form" class="is-hidden subform form-group mb-3" data-index="_">
+    <div class="form-row">
+        <div class="col">
+            <label for="picks-_-sport">League</label>
+            <select class="form-control sport" id="picks-_-sport" name="picks-_-sport">
+                <option value="MLB">MLB</option>
+                <option value="NBA">NBA</option>
+                <option value="NCAAB">NCAAB</option>
+                <option value="NCAAF">NCAAF</option>
+                <option value="NFL">NFL</option>
+                <option value="NHL">NHL</option>
+            </select>
+        </div>
+        <div class="col">
+            <label for="picks-_-team">Team</label>
+            <select class="form-control team" id="picks-_-team" name="picks-_-team">
+                <option value="Arizona Diamondbacks">Arizona Diamondbacks</option>
+                <option value="Atlanta Braves">Atlanta Braves</option>
+                <option value="Baltimore Orioles">Baltimore Orioles</option>
+                <option value="Boston Red Sox">Boston Red Sox</option>
+                <option value="Chicago Cubs">Chicago Cubs</option>
+                <option value="Chicago White Sox">Chicago White Sox</option>
+                <option value="Cincinnati Reds">Cincinnati Reds</option>
+                <option value="Cleveland Indians">Cleveland Indians</option>
+                <option value="Colorado Rockies">Colorado Rockies</option>
+                <option value="Detroit Tigers">Detroit Tigers</option>
+                <option value="Houston Astros">Houston Astros</option>
+                <option value="Kansas City Royals">Kansas City Royals</option>
+                <option value="Los Angeles Angels">Los Angeles Angels</option>
+                <option value="Los Angeles Dodgers">Los Angeles Dodgers</option>
+                <option value="Miami Marlins">Miami Marlins</option>
+                <option value="Milwaukee Brewers">Milwaukee Brewers</option>
+                <option value="Minnesota Twins">Minnesota Twins</option>
+                <option value="New York Mets">New York Mets</option>
+                <option value="New York Yankees">New York Yankees</option>
+                <option value="Oakland Athletics">Oakland Athletics</option>
+                <option value="Philadelphia Phillies">Philadelphia Phillies</option>
+                <option value="Pittsburgh Pirates">Pittsburgh Pirates</option>
+                <option value="San Diego Padres">San Diego Padres</option>
+                <option value="San Francisco Giants">San Francisco Giants</option>
+                <option value="Seattle Mariners">Seattle Mariners</option>
+                <option value="St. Louis Cardinals">St. Louis Cardinals</option>
+                <option value="Tampa Bay Rays">Tampa Bay Rays</option>
+                <option value="Texas Rangers">Texas Rangers</option>
+                <option value="Toronto Blue Jays">Toronto Blue Jays</option>
+                <option value="Washington Nationals">Washington Nationals</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col">
+            <label for="picks-_-linetype">Line Type</label>
+            <select class="form-control" id="picks-_-linetype" name="picks-_-linetype">
+                <option value="Spread">Spread</option>
+                <option value="MoneyLine">MoneyLine</option>
+                <option value="Over/Under">Over/Under</option>
+                <option value="Prop">Prop</option>
+            </select>
+        </div>
+        <div class="col">
+            <label for="picks-_-line">Line</label>
+            <input class="form-control" id="picks-_-line" name="picks-_-line" type="text" value="" pattern="(^[ou][1-9]\d*(.5)?$)|(^[-+]?[1-9]\d*(\.5)?$)" required>
+        </div>
+        <button type="button" class="btn btn-danger remove">Delete Leg</button>
+    </div>
+</div>
 
 
 <script type="text/javascript" src="{{ url_for('static', filename='updatelist.js') }}"></script>

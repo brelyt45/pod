@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import Form, FieldList, FormField, IntegerField, StringField, SubmitField, SelectField
-from wtforms.validators import DataRequired, Length, Email, ValidationError
+from wtforms.validators import DataRequired, Length, Email, ValidationError, Regexp
 import re
 from pod.teamnames import mlbtup
 
@@ -10,16 +10,21 @@ class NonValidatingSelectField(SelectField):
         pass
 
 
+class NonValidatingStringField(StringField):
+    def pre_validate(self, form):
+        pass
+
+
 class ParlayPickForm(FlaskForm):
     sport = SelectField('sport', choices=[('MLB', 'MLB'), ('NBA', 'NBA'), ('NCAAB', 'NCAAB'), ('NCAAF', 'NCAAF'), ('NFL', 'NFL'), ('NHL', 'NHL')])
     team = NonValidatingSelectField('team', choices=mlbtup)
     linetype = SelectField('linetype', choices=[('Spread', 'Spread'), ('MoneyLine', 'MoneyLine'), ('Over/Under', 'Over/Under'), ('Prop', 'Prop')])
-    line = StringField('line', validators=[DataRequired(), Length(max=60)])
+    line = NonValidatingStringField('line', validators=[Regexp(r'(^[-+]?[1-9]\d*(\.5)?$)+')])
     date = StringField()
 
     def validate_line(self, line):
-        overunderpattern = re.compile(r'^[ou][1-9]\d*(.5)?$')
-        spreadpattern = re.compile(r'^[-+]?[1-9]\d*(\.5)?$')
+        overunderpattern = re.compile(r'(^[ou][1-9]\d*(.5)?$)+')
+        spreadpattern = re.compile(r'(^[-+]?[1-9]\d*(\.5)?$)+')
 
         if self.linetype.data == 'Over/Under':
             if not bool(overunderpattern.match(line.data)):
