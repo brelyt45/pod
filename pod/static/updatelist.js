@@ -35,6 +35,7 @@ $(document).on('change', '.linetype', function(){
 
         case 'MoneyLine':
             $line.val('0');
+            $line.attr('pattern','(^0$)');
             $line.parent().css('visibility', 'hidden');
         break;
     };
